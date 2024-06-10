@@ -1,82 +1,100 @@
 import {
-  CaretRightOutlined,
-  ClearOutlined,
-  CloseCircleOutlined,
-  StepForwardOutlined,
+    CaretRightOutlined,
+    ClearOutlined,
+    CloseCircleOutlined,
+    StepForwardOutlined,
 } from "@ant-design/icons";
 import Timer from "./components/Timer.tsx";
 import TimerSummary from "./components/TimeSummary.tsx";
-import { useEffect, useState, useRef } from "react";
+import {useEffect, useState, useRef} from "react";
 
 function App() {
-  const [time, setTime] = useState(0);
-  const [number, setNumber] = useState(1);
-  const [start, setStart] = useState(false);
-  const intervalRef = useRef<number>();
+    const [time, setTime] = useState(0);
+    const [start, setStart] = useState(false);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const [lapTimes, setLapTimes] = useState<number[]>([]);
 
-  useEffect(() => {
-    if (start) {
-      intervalRef.current = setInterval(() => {
-        setTime((c) => c + 1);
-      }, 100);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    }
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+    useEffect(() => {
+        if (start) {
+            intervalRef.current = setInterval(() => {
+                setTime((c) => c + 1);
+            }, 100);
+        } else {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        }
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, [start]);
+
+    const handleStartClick = () => {
+        setStart(true);
     };
-  }, [start]);
 
-  const handleStartClick = () => {
-    setStart(true);
-  };
+    const handleLapClick = () => {
+        setLapTimes([...lapTimes, time]);
+        setTime(0);
+    };
 
-  const handleLapClick = () => {
-    const lapSummary = (
-      <TimerSummary text={"Lap"} time={time} number={number} />
+    const handleStopClick = () => {
+        handleLapClick();
+        setStart(false);
+    };
+
+    const handleResetClick = () => {
+        setTime(0);
+        setStart(false);
+        setLapTimes([]);
+    };
+
+    // let formattedTime = time.toString();
+
+    function TimeFormatter(time: number) { //TODO return format 00:00:00
+        if (time >= 10) return time.toString().slice(0, -1) + ":" + time.toString().slice(-1);
+        return time.toString()
+    }
+
+    const totalTime = lapTimes.reduce((acc, curr) => acc + curr, time);
+
+    return (
+        <>
+            <div className="title">Stopwatch - react</div>
+            <div className="timers">
+                <Timer time={TimeFormatter(time)}/>
+            </div>
+            <div className="summary">
+                {
+                    lapTimes.map((lapTime, index) => (
+                        <TimerSummary
+                            key={index}
+                            text={"Lap"}
+                            time={TimeFormatter(lapTime)}
+                            number={index + 1}
+                        />
+                    ))
+                }
+                <TimerSummary text={"Full Time"} time={TimeFormatter(totalTime)}/>
+            </div>
+            <div className="buttons-section">
+                <button onClick={handleStartClick}>
+                    <CaretRightOutlined/> Start
+                </button>
+                <button onClick={handleLapClick}>
+                    <StepForwardOutlined/> Lap
+                </button>
+                <button onClick={handleStopClick}>
+                    <CloseCircleOutlined/> Stop
+                </button>
+                <button onClick={handleResetClick}>
+                    <ClearOutlined/> Reset
+                </button>
+            </div>
+        </>
     );
-    return lapSummary;
-  };
-
-  const handleStopClick = () => {
-    setStart(false);
-  };
-
-  const handleResetClick = () => {
-    setTime(0);
-    setStart(false); // Make sure to stop the timer when resetting
-  };
-
-  return (
-    <>
-      <div className="title">Stopwatch - react</div>
-      <div className="timers">
-        <Timer time={time} />
-      </div>
-      <div className="summary">
-        {/* {handleLapClick()} */}
-        <TimerSummary text={"Full Time"} time={time} />
-      </div>
-      <div className="buttons-section">
-        <button onClick={handleStartClick}>
-          <CaretRightOutlined /> Start
-        </button>
-        <button onClick={handleLapClick}>
-          <StepForwardOutlined /> Lap
-        </button>
-        <button onClick={handleStopClick}>
-          <CloseCircleOutlined /> Stop
-        </button>
-        <button onClick={handleResetClick}>
-          <ClearOutlined /> Reset
-        </button>
-      </div>
-    </>
-  );
 }
 
 export default App;

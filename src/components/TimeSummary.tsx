@@ -1,7 +1,7 @@
 interface props {
   text: string;
   number?: number;
-  time: number;
+  time: string;
 }
 
 const TimerSummary = ({ text, time, number }: props) => {
