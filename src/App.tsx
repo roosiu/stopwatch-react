@@ -53,7 +53,7 @@ function App() {
 
     // let formattedTime = time.toString();
 
-    function TimeFormatter(time: number) { //TODO return format 00:00:00
+    function timeFormatter(time: number) { //TODO return format 00:00:00
         if (time >= 10) return time.toString().slice(0, -1) + ":" + time.toString().slice(-1);
         return time.toString()
     }
@@ -64,7 +64,7 @@ function App() {
         <>
             <div className="title">Stopwatch - react</div>
             <div className="timers">
-                <Timer time={TimeFormatter(time)}/>
+                <Timer time={timeFormatter(time)}/>
             </div>
             <div className="summary">
                 {
@@ -72,12 +72,12 @@ function App() {
                         <TimerSummary
                             key={index}
                             text={"Lap"}
-                            time={TimeFormatter(lapTime)}
+                            time={timeFormatter(lapTime)}
                             number={index + 1}
                         />
                     ))
                 }
-                <TimerSummary text={"Full Time"} time={TimeFormatter(totalTime)}/>
+                <TimerSummary text={"Full Time"} time={timeFormatter(totalTime)}/>
             </div>
             <div className="buttons-section">
                 <button onClick={handleStartClick}>
