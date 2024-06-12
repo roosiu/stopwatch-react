@@ -7,6 +7,7 @@ import {
 import Timer from "./components/Timer.tsx";
 import TimerSummary from "./components/TimeSummary.tsx";
 import {useEffect, useState, useRef} from "react";
+import timeFormatter from "./utils/timeFormatter.ts";
 
 function App() {
     const [time, setTime] = useState(0);
@@ -36,8 +37,10 @@ function App() {
     };
 
     const handleLapClick = () => {
-        setLapTimes([...lapTimes, time]);
-        setTime(0);
+        if (start) {
+            setLapTimes([...lapTimes, time]);
+            setTime(0);
+        }
     };
 
     const handleStopClick = () => {
@@ -53,10 +56,6 @@ function App() {
 
     // let formattedTime = time.toString();
 
-    function timeFormatter(time: number) { //TODO return format 00:00:00
-        if (time >= 10) return time.toString().slice(0, -1) + ":" + time.toString().slice(-1);
-        return time.toString()
-    }
 
     const totalTime = lapTimes.reduce((acc, curr) => acc + curr, time);
 
