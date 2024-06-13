@@ -1,4 +1,5 @@
 # Stopwatch - React project
+![logo](https://stopwatch-reactapp.netlify.app/logo.svg)
 
 The Stopwatch - React project is a time tracking application built using React, a popular JavaScript library for building user interfaces. The provided code snippet is an excerpt from the project's ESLint configuration file, which is a tool used to detect and report code quality issues in JavaScript and TypeScript code.
 
@@ -8,24 +9,8 @@ Furthermore, the code snippet recommends installing the eslint-plugin-react pack
 
 In summary, the Stopwatch - React project is a time tracking application built with React, and its ESLint configuration is designed to enforce code quality and consistency by detecting and reporting potential issues in the codebase.
 
-## Expanding the ESLint configuration
+## Preview: [https://stopwatch-reactapp.netlify.app/]() 👈
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## License
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The MIT License (MIT). 
