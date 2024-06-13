@@ -9,7 +9,7 @@ Furthermore, the code snippet recommends installing the eslint-plugin-react pack
 
 In summary, the Stopwatch - React project is a time tracking application built with React, and its ESLint configuration is designed to enforce code quality and consistency by detecting and reporting potential issues in the codebase.
 
-## Preview: [https://stopwatch-reactapp.netlify.app/]() 👈
+## Preview: [https://stopwatch-reactapp.netlify.app/](https://stopwatch-reactapp.netlify.app/) 👈
 
 ## License
 
