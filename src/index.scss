@@ -17,10 +17,10 @@ $timer-font: "Kode Mono", sans-serif;
   height: 100vh;
   background: rgb(86, 26, 123);
   background: linear-gradient(
-    351deg,
-    rgba(86, 26, 123, 1) 0%,
-    rgba(237, 235, 238, 1) 45%,
-    rgba(255, 255, 255, 1) 100%
+                  351deg,
+                  rgba(86, 26, 123, 1) 0%,
+                  rgba(237, 235, 238, 1) 45%,
+                  rgba(255, 255, 255, 1) 100%
   );
 }
 
@@ -69,6 +69,7 @@ $light-color: #f4f4f4;
           font-weight: bold;
           padding: 0 5px;
         }
+
         td:last-child {
           font-family: $timer-font;
           color: black;
@@ -82,6 +83,7 @@ $light-color: #f4f4f4;
 .buttons-section {
   display: flex;
   justify-content: center;
+
   button {
     cursor: pointer;
     font-family: $primary-font;
@@ -101,5 +103,11 @@ $light-color: #f4f4f4;
       transform: translateY(-2px);
       transition: all 0.2s ease-in-out;
     }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .buttons-section {
+    flex-wrap: wrap;
   }
 }
